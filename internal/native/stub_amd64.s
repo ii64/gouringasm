@@ -3610,11 +3610,6 @@ _more_stack:
 TEXT ·IoUringPrepRW(SB), NOSPLIT | NOFRAME, $0 - 48
 	NO_LOCAL_POINTERS
 
-_entry:
-	MOVQ (TLS), R14
-	LEAQ 0(SP), R12
-	JBE _more_stack
-
 _IoUringPrepRW:
 	MOVQ op+0(FP), DI
 	MOVQ sqe+8(FP), SI
@@ -3625,9 +3620,6 @@ _IoUringPrepRW:
 	LEAQ ·__native_entry__+11008(SB), AX
 	JMP AX
 
-_more_stack:
-	CALL runtime·morestack_noctxt<>(SB)
-	JMP _entry
 
 
 TEXT ·IoUringGetSQE(SB), NOSPLIT | NOFRAME, $0 - 16
