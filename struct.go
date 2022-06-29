@@ -84,16 +84,16 @@ type IoUringSQE struct {
 }
 
 type IoUringParams struct {
-	sq_entries     __u32
-	cq_entries     __u32
-	flags          __u32
-	sq_thread_cpu  __u32
-	sq_thread_idle __u32
-	features       __u32
-	wq_fd          __u32
-	resv           [3]__u32
-	sq_off         IoSQRingOffsets
-	cq_off         IoCQRingOffsets
+	sq_entries   __u32
+	cq_entries   __u32
+	Flags        IoUringSetupFlag
+	SqThreadCPU  __u32
+	SqThreadIdle __u32
+	Features     __u32
+	wq_fd        __u32
+	resv         [3]__u32
+	sq_off       IoSQRingOffsets
+	cq_off       IoCQRingOffsets
 }
 
 type IoSQRingOffsets struct {

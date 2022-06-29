@@ -3633,20 +3633,9 @@ _more_stack:
 TEXT ·IoUringGetSQE(SB), NOSPLIT | NOFRAME, $0 - 16
 	NO_LOCAL_POINTERS
 
-_entry:
-	MOVQ (TLS), R14
-	LEAQ 0(SP), R12
-	JBE _more_stack
-
 _IoUringGetSQE:
 	MOVQ ring+0(FP), DI
 	CALL ·__native_entry__+11072(SB)
 	MOVQ AX, sqe+8(FP)
 	RET
-
-_more_stack:
-	CALL runtime·morestack_noctxt<>(SB)
-	JMP _entry
-
-
 
