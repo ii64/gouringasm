@@ -6,7 +6,7 @@
 #include "funcdata.h"
 #include "textflag.h"
 
-// native size: 11135
+// native size: 11167
 
 TEXT ·__native_entry__(SB), NOSPLIT, $0
 	NO_LOCAL_POINTERS
@@ -3435,7 +3435,22 @@ _lbl_2aea:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	LONG $0x441f0f; BYTE $0x0	// nopl (%rax, %rax)	// NOPL (AX)(AX*1)
 
-__subr_IoUringPrepRW__off_11008:
+__subr_IoUringCQESeen__off_11008:
+	WORD $0x8548; BYTE $0xf6	// testq %rsi, %rsi	// TESTQ SI, SI
+	WORD $0x1074	// je 0x2b15	// JE _lbl_2b15
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x68478b48	// movq 0x68(%rdi), %rax	// MOVQ 0x68(DI), AX
+	WORD $0x88b	// movl (%rax), %ecx	// MOVL (AX), CX
+	WORD $0xc183; BYTE $0x1	// addl $1, %ecx	// ADDL $0x1, CX
+	WORD $0x889	// movl %ecx, (%rax)	// MOVL CX, (AX)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+
+_lbl_2b15:
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
+
+__subr_IoUringPrepRW__off_11040:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	WORD $0x8840; BYTE $0x3e	// movb %dil, (%rsi)	// MOVB DI, (SI)
@@ -3453,7 +3468,7 @@ __subr_IoUringPrepRW__off_11008:
 	BYTE $0xc3	// retq	// RET 
 	LONG $0x441f0f66; WORD $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
 
-__subr_IoUringGetSQE__off_11072:
+__subr_IoUringGetSQE__off_11104:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	WORD $0x8b48; BYTE $0x7	// movq (%rdi), %rax	// MOVQ (DI), AX
@@ -3464,12 +3479,12 @@ __subr_IoUringGetSQE__off_11072:
 	WORD $0xce29	// subl %ecx, %esi	// SUBL CX, SI
 	LONG $0x184f8b48	// movq 0x18(%rdi), %rcx	// MOVQ 0x18(DI), CX
 	WORD $0x313b	// cmpl (%rcx), %esi	// CMPL SI, (CX)
-	WORD $0x476	// jbe 0x2b5f	// JBE _lbl_2b5f
+	WORD $0x476	// jbe 0x2b7f	// JBE _lbl_2b7f
 	WORD $0xc031	// xorl %eax, %eax	// XORL AX, AX
 	BYTE $0x5d	// popq %rbp	// POPQ BP
 	BYTE $0xc3	// retq	// RET 
 
-_lbl_2b5f:
+_lbl_2b7f:
 	LONG $0xc08f8b; WORD $0x0	// movl 0xc0(%rdi), %ecx	// MOVL 0xc0(DI), CX
 	WORD $0xe9c1; BYTE $0xa	// shrl $0xa, %ecx	// SHRL $0xa, CX
 	LONG $0x10778b48	// movq 0x10(%rdi), %rsi	// MOVQ 0x10(DI), SI
@@ -3607,8 +3622,32 @@ _more_stack:
 	JMP _entry
 
 
+TEXT ·IoUringCQESeen(SB), NOSPLIT | NOFRAME, $0 - 16
+	NO_LOCAL_POINTERS
+
+_entry:
+	MOVQ (TLS), R14
+	LEAQ 0(SP), R12
+	JBE _more_stack
+
+_IoUringCQESeen:
+	MOVQ ring+0(FP), DI
+	MOVQ cqe+8(FP), SI
+	LEAQ ·__native_entry__+11008(SB), AX
+	JMP AX
+
+_more_stack:
+	CALL runtime·morestack_noctxt<>(SB)
+	JMP _entry
+
+
 TEXT ·IoUringPrepRW(SB), NOSPLIT | NOFRAME, $0 - 48
 	NO_LOCAL_POINTERS
+
+_entry:
+	MOVQ (TLS), R14
+	LEAQ 0(SP), R12
+	JBE _more_stack
 
 _IoUringPrepRW:
 	MOVQ op+0(FP), DI
@@ -3617,17 +3656,31 @@ _IoUringPrepRW:
 	MOVQ addr+24(FP), CX
 	MOVQ len+32(FP), R8
 	MOVQ offset+40(FP), R9
-	LEAQ ·__native_entry__+11008(SB), AX
+	LEAQ ·__native_entry__+11040(SB), AX
 	JMP AX
 
+_more_stack:
+	CALL runtime·morestack_noctxt<>(SB)
+	JMP _entry
 
 
 TEXT ·IoUringGetSQE(SB), NOSPLIT | NOFRAME, $0 - 16
 	NO_LOCAL_POINTERS
 
+_entry:
+	MOVQ (TLS), R14
+	LEAQ 0(SP), R12
+	JBE _more_stack
+
 _IoUringGetSQE:
 	MOVQ ring+0(FP), DI
-	CALL ·__native_entry__+11072(SB)
+	CALL ·__native_entry__+11104(SB)
 	MOVQ AX, sqe+8(FP)
 	RET
+
+_more_stack:
+	CALL runtime·morestack_noctxt<>(SB)
+	JMP _entry
+
+
 

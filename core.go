@@ -64,3 +64,7 @@ func (ring *Uring) WaitCQE(cqePtr **IoUringCQE) error {
 	}
 	return nil
 }
+
+func (ring *Uring) SeenCQE(cqe *IoUringCQE) {
+	IoUringCQESeen(ring.h, cqe)
+}

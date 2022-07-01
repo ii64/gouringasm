@@ -103,8 +103,9 @@ var (
 	__subr_IoUringSubmit = __native_entry__() + 10816
 	__subr_IoUringSubmitAndWait = __native_entry__() + 10832
 	__subr_IoUringWaitCQE = __native_entry__() + 10848
-	__subr_IoUringPrepRW = __native_entry__() + 11008
-	__subr_IoUringGetSQE = __native_entry__() + 11072
+	__subr_IoUringCQESeen = __native_entry__() + 11008
+	__subr_IoUringPrepRW = __native_entry__() + 11040
+	__subr_IoUringGetSQE = __native_entry__() + 11104
 )
 
 const (
@@ -202,6 +203,7 @@ const (
 	__stack_IoUringSubmit = 0
 	__stack_IoUringSubmitAndWait = 0
 	__stack_IoUringWaitCQE = 0
+	__stack_IoUringCQESeen = 0
 	__stack_IoUringPrepRW = 0
 	__stack_IoUringGetSQE = 0
 )
@@ -301,6 +303,7 @@ const (
 	_ = __stack_IoUringSubmit
 	_ = __stack_IoUringSubmitAndWait
 	_ = __stack_IoUringWaitCQE
+	_ = __stack_IoUringCQESeen
 	_ = __stack_IoUringPrepRW
 	_ = __stack_IoUringGetSQE
 )
@@ -399,6 +402,7 @@ var (
 	_ = __subr_IoUringSubmit
 	_ = __subr_IoUringSubmitAndWait
 	_ = __subr_IoUringWaitCQE
+	_ = __subr_IoUringCQESeen
 	_ = __subr_IoUringPrepRW
 	_ = __subr_IoUringGetSQE
 )

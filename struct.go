@@ -45,9 +45,9 @@ type IoUringCQ struct {
 }
 
 type IoUringCQE struct {
-	user_data __u64
-	res       __s32
-	flags     __u32
+	UserData __u64
+	Res      __s32
+	Flags    __u32
 }
 
 type IoUringSQ struct {

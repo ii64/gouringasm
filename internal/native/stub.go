@@ -55,3 +55,9 @@ func IoUringGetSQE(ring unsafe.Pointer) (sqe unsafe.Pointer)
 func IoUringWaitCQE(
 	ring unsafe.Pointer,
 	cqePtr unsafe.Pointer) (ret uintptr)
+
+//go:nosplit
+//go:noescape
+func IoUringCQESeen(
+	ring unsafe.Pointer,
+	cqe unsafe.Pointer)

@@ -46,7 +46,7 @@ func TestSubmitAndGetCQE(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, cqe)
 
-	assert.Equal(t, ud, cqe.user_data)
+	assert.Equal(t, ud, cqe.UserData)
 }
 
 func TestNewWithParams(t *testing.T) {
@@ -94,5 +94,5 @@ func TestSubmitAndGetCQE_SetupWithParam(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, cqe)
 
-	assert.Equal(t, ud, cqe.user_data)
+	assert.Equal(t, ud, cqe.UserData)
 }
