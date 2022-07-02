@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"os"
@@ -12,11 +13,17 @@ import (
 	_ "net/http/pprof"
 	_ "unsafe"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/ii64/gouringasm"
 	"github.com/ii64/gouringasm/evloop"
 )
 
 var l = log.New(os.Stdout, "http_simple ", 0)
+
+// openssl genrsa -out server.key 2048
+// openssl ecparam -genkey -name secp384r1 -out server.key
+// openssl req -new -x509 -sha256 -key server.key -out server.pem -days 3650
 
 func main() {
 
@@ -30,14 +37,61 @@ func main() {
 	var conn net.Conn
 	var n int
 
-	if true {
+	switch 3 {
+	case 1:
 		for {
 			err = http.Serve(ln, http.DefaultServeMux)
 			if err != nil {
 				continue
 			}
 		}
-	} else {
+	case 2:
+		for {
+			err = http.ServeTLS(ln, http.DefaultServeMux, "server.pem", "server.key")
+			if err != nil {
+				continue
+			}
+		}
+	case 3:
+		eng := gin.Default()
+
+		eng.GET("/", func(ctx *gin.Context) {
+			ctx.JSON(200, gin.H{
+				"status": "",
+			})
+		})
+		eng.GET("/stream", func(ctx *gin.Context) {
+			msg := make(chan string, 1)
+
+			// We are streaming current time to clients in the interval 10 seconds
+			go func() {
+				for {
+					time.Sleep(time.Second * 1)
+					now := time.Now().Format("2006-01-02 15:04:05")
+					currentTime := fmt.Sprintf("The Current Time Is %v", now)
+
+					// Send current time to clients message channel
+					msg <- currentTime
+				}
+			}()
+
+			ctx.Stream(func(w io.Writer) bool {
+				// Stream message to client from message channel
+				if msg, ok := <-msg; ok {
+					ctx.SSEvent("message", msg)
+					return true
+				}
+				return false
+			})
+		})
+
+		for {
+			err = http.ServeTLS(ln, eng.Handler(), "server.pem", "server.key")
+			if err != nil {
+				continue
+			}
+		}
+	default:
 		for {
 			conn, err = ln.Accept()
 			if err != nil {
