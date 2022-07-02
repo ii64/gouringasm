@@ -1,6 +1,6 @@
 package gouringasm
 
-type IoUringOpcode = int32
+type IoUringOpcode = uint8
 type IoUringSetupFlag = __u32
 
 const (

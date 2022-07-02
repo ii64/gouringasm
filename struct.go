@@ -67,8 +67,8 @@ type IoUringSQ struct {
 }
 
 type IoUringSQE struct {
-	opcode      __u8
-	flags       __u8
+	Opcode      __u8
+	Flags       __u8
 	ioprio      __u16
 	fd          __s32
 	anon0       [8]byte
