@@ -105,7 +105,26 @@ var (
 	__subr_IoUringWaitCQE = __native_entry__() + 10848
 	__subr_IoUringCQESeen = __native_entry__() + 11008
 	__subr_IoUringPrepRW = __native_entry__() + 11040
-	__subr_IoUringGetSQE = __native_entry__() + 11104
+	__subr_IouringPrepSplice = __native_entry__() + 11104
+	__subr_IoUringPrepTee = __native_entry__() + 11184
+	__subr_IoUringPrepReadv = __native_entry__() + 11232
+	__subr_IoUringPrepReadv2 = __native_entry__() + 11296
+	__subr_IoUringPrepWritev = __native_entry__() + 11344
+	__subr_IoUringPrepWritev2 = __native_entry__() + 11408
+	__subr_IoUringPrepRecvmsg = __native_entry__() + 11456
+	__subr_IoUringPrepSendmsg = __native_entry__() + 11520
+	__subr_IoUringPrepFsync = __native_entry__() + 11584
+	__subr_IoUringPrepNop = __native_entry__() + 11632
+	__subr_IoUringPrepAccept = __native_entry__() + 11696
+	__subr_IoUringPrepMultishotAccept = __native_entry__() + 11760
+	__subr_IoUringPrepConnect = __native_entry__() + 11824
+	__subr_IoUringPrepClose = __native_entry__() + 11888
+	__subr_IoUringPrepRead = __native_entry__() + 11936
+	__subr_IoUringPrepWrite = __native_entry__() + 12000
+	__subr_IoUringPrepSend = __native_entry__() + 12064
+	__subr_IoUringPrepRecv = __native_entry__() + 12128
+	__subr_IoUringPrepEpollCtl = __native_entry__() + 12192
+	__subr_IoUringGetSQE = __native_entry__() + 12256
 )
 
 const (
@@ -205,6 +224,25 @@ const (
 	__stack_IoUringWaitCQE = 0
 	__stack_IoUringCQESeen = 0
 	__stack_IoUringPrepRW = 0
+	__stack_IouringPrepSplice = 0
+	__stack_IoUringPrepTee = 0
+	__stack_IoUringPrepReadv = 0
+	__stack_IoUringPrepReadv2 = 0
+	__stack_IoUringPrepWritev = 0
+	__stack_IoUringPrepWritev2 = 0
+	__stack_IoUringPrepRecvmsg = 0
+	__stack_IoUringPrepSendmsg = 0
+	__stack_IoUringPrepFsync = 0
+	__stack_IoUringPrepNop = 0
+	__stack_IoUringPrepAccept = 0
+	__stack_IoUringPrepMultishotAccept = 0
+	__stack_IoUringPrepConnect = 0
+	__stack_IoUringPrepClose = 0
+	__stack_IoUringPrepRead = 0
+	__stack_IoUringPrepWrite = 0
+	__stack_IoUringPrepSend = 0
+	__stack_IoUringPrepRecv = 0
+	__stack_IoUringPrepEpollCtl = 0
 	__stack_IoUringGetSQE = 0
 )
 
@@ -305,6 +343,25 @@ const (
 	_ = __stack_IoUringWaitCQE
 	_ = __stack_IoUringCQESeen
 	_ = __stack_IoUringPrepRW
+	_ = __stack_IouringPrepSplice
+	_ = __stack_IoUringPrepTee
+	_ = __stack_IoUringPrepReadv
+	_ = __stack_IoUringPrepReadv2
+	_ = __stack_IoUringPrepWritev
+	_ = __stack_IoUringPrepWritev2
+	_ = __stack_IoUringPrepRecvmsg
+	_ = __stack_IoUringPrepSendmsg
+	_ = __stack_IoUringPrepFsync
+	_ = __stack_IoUringPrepNop
+	_ = __stack_IoUringPrepAccept
+	_ = __stack_IoUringPrepMultishotAccept
+	_ = __stack_IoUringPrepConnect
+	_ = __stack_IoUringPrepClose
+	_ = __stack_IoUringPrepRead
+	_ = __stack_IoUringPrepWrite
+	_ = __stack_IoUringPrepSend
+	_ = __stack_IoUringPrepRecv
+	_ = __stack_IoUringPrepEpollCtl
 	_ = __stack_IoUringGetSQE
 )
 var (
@@ -404,5 +461,24 @@ var (
 	_ = __subr_IoUringWaitCQE
 	_ = __subr_IoUringCQESeen
 	_ = __subr_IoUringPrepRW
+	_ = __subr_IouringPrepSplice
+	_ = __subr_IoUringPrepTee
+	_ = __subr_IoUringPrepReadv
+	_ = __subr_IoUringPrepReadv2
+	_ = __subr_IoUringPrepWritev
+	_ = __subr_IoUringPrepWritev2
+	_ = __subr_IoUringPrepRecvmsg
+	_ = __subr_IoUringPrepSendmsg
+	_ = __subr_IoUringPrepFsync
+	_ = __subr_IoUringPrepNop
+	_ = __subr_IoUringPrepAccept
+	_ = __subr_IoUringPrepMultishotAccept
+	_ = __subr_IoUringPrepConnect
+	_ = __subr_IoUringPrepClose
+	_ = __subr_IoUringPrepRead
+	_ = __subr_IoUringPrepWrite
+	_ = __subr_IoUringPrepSend
+	_ = __subr_IoUringPrepRecv
+	_ = __subr_IoUringPrepEpollCtl
 	_ = __subr_IoUringGetSQE
 )

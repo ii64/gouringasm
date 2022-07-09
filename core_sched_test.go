@@ -3,29 +3,27 @@ package gouringasm
 import (
 	"sync"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestSched(t *testing.T) {
 	const task = 10_000
-	h, err := New(256, 0)
-	assert.NoError(t, err)
+	h := testNewIoUring(t, 256, 0)
+	defer h.Close()
 
 	var wg sync.WaitGroup
 	wg.Add(2)
 	go func() {
 		defer wg.Done()
-		var sqe *IoUringSQE
+		var sqe *IoUringSqe
 		var err error
 		i := 0
 		for i < task {
-			sqe = h.GetSQE()
+			sqe = h.GetSqe()
 			if sqe == nil {
 				// keep trying..
 				continue
 			}
-			IoUringPrepRW(IORING_OP_NOP, sqe, 0, nil, 0, 0)
+			PrepRW(IORING_OP_NOP, sqe, 0, nil, 0, 0)
 			IoUringSetUserdata(sqe, uint64(i))
 			_, err = h.Submit()
 			if err != nil {
@@ -38,10 +36,10 @@ func TestSched(t *testing.T) {
 	go func() {
 		defer wg.Done()
 		i := 0
-		var cqe *IoUringCQE
+		var cqe *IoUringCqe
 		var err error
 		for i < task {
-			err = h.WaitCQE(&cqe)
+			err = h.WaitCqe(&cqe)
 			if err != nil {
 				panic(err)
 			}
