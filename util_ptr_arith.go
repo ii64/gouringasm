@@ -24,28 +24,28 @@ func ioUringCqeArray_Index(u ioUringCqeArray, i uintptr) *IoUringCqe {
 
 //
 
-type userdata [8]byte // uint64
+type Userdata uint64
 
-func (u *userdata) SetUint64(v uint64) {
+func (u *Userdata) SetUint64(v uint64) {
 	u.SetUintptr(uintptr(v))
 }
-func (u *userdata) SetUintptr(v uintptr) {
+func (u *Userdata) SetUintptr(v uintptr) {
 	putUintptr(unsafe.Pointer(u), v)
 }
-func (u *userdata) SetUnsafe(ptr unsafe.Pointer) {
+func (u *Userdata) SetUnsafe(ptr unsafe.Pointer) {
 	putUnsafe(unsafe.Pointer(u), ptr)
 }
 
-func (u userdata) GetUnsafe() unsafe.Pointer {
+func (u Userdata) GetUnsafe() unsafe.Pointer {
 	return *(*unsafe.Pointer)(unsafe.Pointer(&u))
 }
-func (u userdata) GetUintptr() uintptr {
+func (u Userdata) GetUintptr() uintptr {
 	return uintptr(u.GetUnsafe())
 }
-func (u userdata) GetUint64() uint64 {
+func (u Userdata) GetUint64() uint64 {
 	return uint64(u.GetUintptr())
 }
-func (u userdata) IsZero() bool {
+func (u Userdata) IsZero() bool {
 	return u.GetUint64() == 0
 }
 

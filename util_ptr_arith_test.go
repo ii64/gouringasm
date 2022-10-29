@@ -1,7 +1,6 @@
 package gouringasm
 
 import (
-	"encoding/binary"
 	"fmt"
 	"testing"
 	"unsafe"
@@ -12,7 +11,7 @@ import (
 func TestUserdata(t *testing.T) {
 	type test struct {
 		v   any
-		exp uint64
+		exp Userdata
 	}
 	ts := []test{
 		{uint64(0), 0},
@@ -21,9 +20,8 @@ func TestUserdata(t *testing.T) {
 		{uintptr(0xcafeba), 0xcafeba},
 		{unsafe.Pointer(nil), 0},
 	}
-	bo := binary.LittleEndian
 	for _, tc := range ts {
-		var u userdata
+		var u Userdata
 		switch v := tc.v.(type) {
 		case uint64:
 			u.SetUint64(v)
@@ -35,10 +33,6 @@ func TestUserdata(t *testing.T) {
 			panic(fmt.Sprintf("unhandled type: %T", v))
 		}
 
-		assert.Equal(t, tc.exp, u.GetUint64())
-
-		var exp [8]byte
-		bo.PutUint64(exp[:], tc.exp)
-		assert.Equal(t, exp[:], u[:])
+		assert.Equal(t, tc.exp, u)
 	}
 }

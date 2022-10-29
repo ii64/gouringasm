@@ -95,7 +95,7 @@ type IoUringSqe struct {
 	//  };
 	IoUringSqe_Union3
 
-	UserData userdata /* data to be passed back at completion time */
+	UserData Userdata /* data to be passed back at completion time */
 
 	/* pack this to avoid bogus arm OABI complaints */
 	//  union {
@@ -320,7 +320,7 @@ const IORING_ACCEPT_MULTISHOT = (1 << 0)
  * IO completion data structure (Completion Queue Entry)
  */
 type IoUringCqe struct {
-	UserData userdata /* sqe->data submission passed back */
+	UserData Userdata /* sqe->data submission passed back */
 	Res      int32    /* result code for this event */
 	Flags    uint32
 
