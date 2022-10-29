@@ -1,6 +1,6 @@
 alL: run
 
-N := 100000
+N := 10000000
 PERF_OPTS := -n $(N) -noti $(N)
 
 GCFLAGS := $(GCFLAGS)
