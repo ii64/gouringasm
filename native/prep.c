@@ -93,10 +93,28 @@ void IoUringPrepSendmsg(struct io_uring_sqe *sqe,
         (int)fd, (const struct msghdr *)msg, (unsigned int)flags);
 }
 
-// io_uring_prep_poll_add
-// io_uring_prep_poll_multishot
-// io_uring_prep_poll_remove
-// io_uring_prep_poll_update
+void IoUringPrepPollAdd(struct io_uring_sqe *sqe, __uint64 fd, __uint64 poll_mask)
+{
+    io_uring_prep_poll_add(sqe, (int)fd, (unsigned int)poll_mask);
+}
+
+void IoUringPrepPollMultishot(struct io_uring_sqe *sqe, __uint64 fd, __uint64 poll_mask)
+{
+    io_uring_prep_poll_multishot(sqe, (int)fd, (unsigned int)poll_mask);
+}
+
+void IoUringPrepPollRemove(struct io_uring_sqe *sqe, __uint64 user_data)
+{
+    io_uring_prep_poll_remove(sqe, user_data);
+}
+void IoUringPrepPollUpdate(struct io_uring_sqe *sqe, __uint64 old_user_data,
+                                             __uint64 new_user_data,
+                                             __uint64 poll_mask,
+                                             __uint64 flags)
+{
+    io_uring_prep_poll_update(sqe, old_user_data, new_user_data,
+        (unsigned int)poll_mask, (unsigned int)flags);
+}
 
 void IoUringPrepFsync(struct io_uring_sqe *sqe, __uint64 fd, __uint64 fsync_flags)
 {
@@ -108,9 +126,27 @@ void IoUringPrepNop(struct io_uring_sqe *sqe)
     io_uring_prep_nop(sqe);
 }
 
-// io_uring_prep_timeout
-// io_uring_prep_timeout_remove
-// io_uring_prep_timeout_update
+
+void IoUringPrepTimeout(struct io_uring_sqe *sqe,
+                        struct __kernel_timespec *ts,
+                        __uint64 count, __uint64 flags)
+{
+    io_uring_prep_timeout(sqe, ts, (unsigned int)count, (unsigned int)flags);
+}
+
+void IoUringPrepTimeoutRemove(struct io_uring_sqe *sqe,  __uint64 user_data,
+                            __uint64 flags)
+{
+    io_uring_prep_timeout_remove(sqe, user_data, (unsigned int)flags);
+}
+
+void IoUringPrepTimeoutUpdate(struct io_uring_sqe *sqe,
+                                struct __kernel_timespec *ts,
+                                __uint64 user_data,
+                                __uint64 flags)
+{
+    io_uring_prep_timeout_update(sqe, ts, user_data, (unsigned int)flags);
+}
 
 void IoUringPrepAccept(struct io_uring_sqe *sqe,
     __uint64 fd, struct sockaddr *addr,
@@ -118,6 +154,7 @@ void IoUringPrepAccept(struct io_uring_sqe *sqe,
 {
     io_uring_prep_accept(sqe, (int)fd, addr, addrlen, (int)flags);
 }
+
 // io_uring_prep_accept_direct
 void IoUringPrepMultishotAccept(struct io_uring_sqe *sqe,
     __uint64 fd, struct sockaddr *addr,
@@ -126,13 +163,40 @@ void IoUringPrepMultishotAccept(struct io_uring_sqe *sqe,
     io_uring_prep_multishot_accept(sqe, (int)fd,
         addr, addrlen, (int)flags);
 }
-// io_uring_prep_multishot_accept_direct
+
+void IoUringPrepMultishotAcceptDirect(struct io_uring_sqe *sqe, __uint64 fd,
+                                      struct sockaddr *addr, socklen_t *addrlen,
+                                      __uint64 flags)
+{
+    io_uring_prep_multishot_accept_direct(sqe, (int)fd, addr, addrlen, (int)flags);
+}
 
 
-// io_uring_prep_cancel64
-// io_uring_prep_cancel
-// io_uring_prep_cancel_fd
-// io_uring_prep_link_timeout
+
+void IoUringPrepCancel64(struct io_uring_sqe *sqe,
+                        __uint64 user_data, __uint64 flags)
+{
+    io_uring_prep_cancel64(sqe, user_data, (int)flags);
+}
+
+void IoUringPrepCancel(struct io_uring_sqe *sqe,
+                        void *user_data, __uint64 flags)
+{
+    io_uring_prep_cancel(sqe, user_data, (int)flags);
+}
+
+void IoUringPrepCancelFd(struct io_uring_sqe *sqe, __uint64 fd,
+                            __uint64 flags)
+{
+    io_uring_prep_cancel_fd(sqe, (int)fd, (unsigned int)flags);
+}
+
+void IoUringPrepLinkTimeout(struct io_uring_sqe *sqe,
+                            struct __kernel_timespec *ts,
+                            __uint64 flags)
+{
+    io_uring_prep_link_timeout(sqe, ts, (unsigned int)flags);
+}
 
 void IoUringPrepConnect(struct io_uring_sqe *sqe,
     __uint64 fd,
@@ -143,9 +207,27 @@ void IoUringPrepConnect(struct io_uring_sqe *sqe,
         (int)fd, (const struct sockaddr *)addr, (socklen_t)addrlen);
 }
 
-// io_uring_prep_files_update
-// io_uring_prep_openat
-// io_uring_prep_openat_direct
+void IoUringPrepFilesUpdate(struct io_uring_sqe *sqe,
+                            int *fds, __uint64 nr_fds,
+                            __uint64 offset)
+{
+    io_uring_prep_files_update(sqe, fds, (unsigned int)nr_fds, (int)offset);
+}
+
+void IoUringPrepOpenat(struct io_uring_sqe *sqe, __uint64 dfd,
+                        const char *path, __uint64 flags,
+                        __uint64 mode)
+{
+    io_uring_prep_openat(sqe, (int)dfd, path, (int)flags, (mode_t)mode);
+}
+
+void IoUringPrepOpenatDirect(struct io_uring_sqe *sqe,
+                            __uint64 dfd, const char *path,
+                            __uint64 flags, __uint64 mode,
+                            __uint64 file_index)
+{
+    io_uring_prep_openat_direct(sqe, (int)dfd, path, (int)flags, (mode_t)mode, (unsigned int)file_index);
+}
 
 void IoUringPrepClose(struct io_uring_sqe *sqe,
     __uint64 fd)
@@ -153,7 +235,12 @@ void IoUringPrepClose(struct io_uring_sqe *sqe,
     io_uring_prep_close(sqe, (int)fd);
 }
 
-// io_uring_prep_close_direct
+void IoUringPrepCloseDirect(struct io_uring_sqe *sqe,
+                            __uint64 file_index)
+{
+    io_uring_prep_close_direct(sqe, (unsigned int)file_index);
+}
+
 
 void IoUringPrepRead(struct io_uring_sqe *sqe,
     __uint64 fd, void *buf, __uint64 nbytes,
@@ -169,9 +256,26 @@ void IoUringPrepWrite(struct io_uring_sqe *sqe,
     io_uring_prep_write(sqe, (int)fd, buf, (unsigned int)nbytes, (__u64)offset);
 }
 
-// io_uring_prep_statx
-// io_uring_prep_fadvise
-// io_uring_prep_madvise
+
+void IoUringPrepStatx(struct io_uring_sqe *sqe, __uint64 dfd,
+                        const char *path, __uint64 flags,
+                        __uint64 mask,
+                        struct statx *statxbuf)
+{
+    io_uring_prep_statx(sqe, (int)dfd, path, (int)flags, (unsigned int)mask, statxbuf);
+}
+
+void IoUringPrepFadvise(struct io_uring_sqe *sqe, int fd,
+                        __uint64 offset, __uint64 len, __uint64 advice)
+{
+    io_uring_prep_fadvise(sqe, fd, (__u64)offset, (off_t)len, (int)advice);
+}
+
+void IoUringPrepMadvise(struct io_uring_sqe *sqe, void *addr,
+                        __uint64 length, __uint64 advice)
+{
+    io_uring_prep_madvise(sqe, addr, (off_t)length, (int)advice);
+}
 
 void IoUringPrepSend(struct io_uring_sqe *sqe,
     __uint64 sockfd, void *buf, size_t len, __uint64 flags)
@@ -188,8 +292,20 @@ void IoUringPrepRecv(struct io_uring_sqe *sqe,
         buf, (size_t)len, (int)flags);
 }
 
-// io_uring_prep_openat2
-// io_uring_prep_openat2_direct
+
+void IoUringPrepOpenat2(struct io_uring_sqe *sqe, __uint64 dfd,
+                        const char *path, struct open_how *how)
+{
+    io_uring_prep_openat2(sqe, (int)dfd, path, how);
+}
+
+void IoUringPrepOpenat2Direct(struct io_uring_sqe *sqe,
+                                __uint64 dfd, const char *path,
+                                struct open_how *how,
+                                __uint64 file_index)
+{
+    io_uring_prep_openat2_direct(sqe, (int)dfd, path, how, (unsigned int)file_index);
+}
 
 void IoUringPrepEpollCtl(struct io_uring_sqe *sqe,
     __uint64 epfd, __uint64 fd, __uint64 op,

@@ -6,7 +6,7 @@
 #include "funcdata.h"
 #include "textflag.h"
 
-// native size: 12319
+// native size: 13583
 
 TEXT ·__native_entry__(SB), NOSPLIT, $0
 	NO_LOCAL_POINTERS
@@ -3606,7 +3606,69 @@ __subr_IoUringPrepSendmsg__off_11520:
 	BYTE $0xc3	// retq	// RET 
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 
-__subr_IoUringPrepFsync__off_11584:
+__subr_IoUringPrepPollAdd__off_11584:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x607c7; WORD $0x0	// movl $6, (%rdi)	// MOVL $0x6, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x8	// vmovups %xmm0, 8(%rdi)	// VMOVUPS X0, 0x8(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	BYTE $0x90	// nop	// NOP 
+
+__subr_IoUringPrepPollMultishot__off_11632:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x607c7; WORD $0x0	// movl $6, (%rdi)	// MOVL $0x6, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x8	// vmovups %xmm0, 8(%rdi)	// VMOVUPS X0, 0x8(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	LONG $0x11847c7; WORD $0x0; BYTE $0x0	// movl $1, 0x18(%rdi)	// MOVL $0x1, 0x18(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	BYTE $0x90	// nop	// NOP 
+
+__subr_IoUringPrepPollRemove__off_11680:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff00000007b848; WORD $0xffff	// movabsq $0xffffffff00000007, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	QUAD $0x1847c748	// movq $0, 0x18(%rdi)	// MOVQ $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f	// nopl (%rax, %rax)	// NOPL (AX)(AX*1)
+
+__subr_IoUringPrepPollUpdate__off_11744:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff00000007b848; WORD $0xffff	// movabsq $0xffffffff00000007, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	LONG $0x8578948	// movq %rdx, 8(%rdi)	// MOVQ DX, 0x8(DI)
+	LONG $0x18478944	// movl %r8d, 0x18(%rdi)	// MOVL R8, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
+	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepFsync__off_11808:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0x307c7; WORD $0x0	// movl $3, (%rdi)	// MOVL $0x3, (DI)
@@ -3621,7 +3683,7 @@ __subr_IoUringPrepFsync__off_11584:
 	BYTE $0xc3	// retq	// RET 
 	BYTE $0x90	// nop	// NOP 
 
-__subr_IoUringPrepNop__off_11632:
+__subr_IoUringPrepNop__off_11856:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	QUAD $0xffff00000000b848; WORD $0xffff	// movabsq $0xffffffff00000000, %rax	// 
@@ -3636,7 +3698,57 @@ __subr_IoUringPrepNop__off_11632:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	LONG $0x441f0f; BYTE $0x0	// nopl (%rax, %rax)	// NOPL (AX)(AX*1)
 
-__subr_IoUringPrepAccept__off_11696:
+__subr_IoUringPrepTimeout__off_11920:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	WORD $0xd089	// movl %edx, %eax	// MOVL DX, AX
+	QUAD $0xffff0000000bba48; WORD $0xffff	// movabsq $0xffffffff0000000b, %rdx	// 
+	WORD $0x8948; BYTE $0x17	// movq %rdx, (%rdi)	// MOVQ DX, (DI)
+	LONG $0x8478948	// movq %rax, 8(%rdi)	// MOVQ AX, 0x8(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	LONG $0x11847c7; WORD $0x0; BYTE $0x0	// movl $1, 0x18(%rdi)	// MOVL $0x1, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f	// nopl (%rax, %rax)	// NOPL (AX)(AX*1)
+
+__subr_IoUringPrepTimeoutRemove__off_11984:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff0000000cb848; WORD $0xffff	// movabsq $0xffffffff0000000c, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x441f0f66; WORD $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
+
+__subr_IoUringPrepTimeoutUpdate__off_12048:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff0000000cb848; WORD $0xffff	// movabsq $0xffffffff0000000c, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	LONG $0x8778948	// movq %rsi, 8(%rdi)	// MOVQ SI, 0x8(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	WORD $0xc983; BYTE $0x2	// orl $2, %ecx	// ORL $0x2, CX
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x801f0f; WORD $0x0; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepAccept__off_12112:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0xd07c7; WORD $0x0	// movl $0xd, (%rdi)	// MOVL $0xd, (DI)
@@ -3653,7 +3765,7 @@ __subr_IoUringPrepAccept__off_11696:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepMultishotAccept__off_11760:
+__subr_IoUringPrepMultishotAccept__off_12176:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0xd07c7; WORD $0x1	// movl $0x1000d, (%rdi)	// MOVL $0x1000d, (DI)
@@ -3670,7 +3782,89 @@ __subr_IoUringPrepMultishotAccept__off_11760:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepConnect__off_11824:
+__subr_IoUringPrepMultishotAcceptDirect__off_12240:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0xd07c7; WORD $0x1	// movl $0x1000d, (%rdi)	// MOVL $0x1000d, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0x84f8948	// movq %rcx, 8(%rdi)	// MOVQ CX, 0x8(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0xffff00000000b848; WORD $0xffff	// movabsq $0xffffffff00000000, %rax	// 
+	LONG $0x28478948	// movq %rax, 0x28(%rdi)	// MOVQ AX, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x1c478944	// movl %r8d, 0x1c(%rdi)	// MOVL R8, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x801f0f; WORD $0x0; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepCancel64__off_12304:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff0000000eb848; WORD $0xffff	// movabsq $0xffffffff0000000e, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x441f0f66; WORD $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
+
+__subr_IoUringPrepCancel__off_12368:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff0000000eb848; WORD $0xffff	// movabsq $0xffffffff0000000e, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x441f0f66; WORD $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
+
+__subr_IoUringPrepCancelFd__off_12432:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0xe07c7; WORD $0x0	// movl $0xe, (%rdi)	// MOVL $0xe, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x8	// vmovups %xmm0, 8(%rdi)	// VMOVUPS X0, 0x8(DI)
+	LONG $0x1847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x18(%rdi)	// MOVL $0x0, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0xca83; BYTE $0x2	// orl $2, %edx	// ORL $0x2, DX
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
+	LONG $0x401f0f	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepLinkTimeout__off_12496:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff0000000fb848; WORD $0xffff	// movabsq $0xffffffff0000000f, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	LONG $0x11847c7; WORD $0x0; BYTE $0x0	// movl $1, 0x18(%rdi)	// MOVL $0x1, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x5789; BYTE $0x1c	// movl %edx, 0x1c(%rdi)	// MOVL DX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x441f0f66; WORD $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
+
+__subr_IoUringPrepConnect__off_12560:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	WORD $0xc889	// movl %ecx, %eax	// MOVL CX, AX
@@ -3687,7 +3881,59 @@ __subr_IoUringPrepConnect__off_11824:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	LONG $0x401f0f	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepClose__off_11888:
+__subr_IoUringPrepFilesUpdate__off_12624:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	WORD $0x6348; BYTE $0xc1	// movslq %ecx, %rax	// 
+	QUAD $0xffff00000014b948; WORD $0xffff	// movabsq $0xffffffff00000014, %rcx	// 
+	WORD $0x8948; BYTE $0xf	// movq %rcx, (%rdi)	// MOVQ CX, (DI)
+	LONG $0x8478948	// movq %rax, 8(%rdi)	// MOVQ AX, 0x8(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	WORD $0x5789; BYTE $0x18	// movl %edx, 0x18(%rdi)	// MOVL DX, 0x18(DI)
+	LONG $0x1c47c7; WORD $0x0; BYTE $0x0	// movl $0, 0x1c(%rdi)	// MOVL $0x0, 0x1c(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x801f0f; WORD $0x0; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepOpenat__off_12688:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1207c7; WORD $0x0	// movl $0x12, (%rdi)	// MOVL $0x12, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	LONG $0x18478944	// movl %r8d, 0x18(%rdi)	// MOVL R8, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
+	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepOpenatDirect__off_12752:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1207c7; WORD $0x0	// movl $0x12, (%rdi)	// MOVL $0x12, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	LONG $0x18478944	// movl %r8d, 0x18(%rdi)	// MOVL R8, 0x18(DI)
+	LONG $0x2847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x28(%rdi)	// MOVL $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	LONG $0x1c18341	// addl $1, %r9d	// ADDL $0x1, R9
+	LONG $0x2c4f8944	// movl %r9d, 0x2c(%rdi)	// MOVL R9, 0x2c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	LONG $0x441f0f66; WORD $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
+
+__subr_IoUringPrepClose__off_12816:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0x1307c7; WORD $0x0	// movl $0x13, (%rdi)	// MOVL $0x13, (DI)
@@ -3701,7 +3947,21 @@ __subr_IoUringPrepClose__off_11888:
 	BYTE $0xc3	// retq	// RET 
 	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepRead__off_11936:
+__subr_IoUringPrepCloseDirect__off_12864:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1307c748; WORD $0x0; BYTE $0x0	// movq $0x13, (%rdi)	// MOVQ $0x13, (DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x8	// vmovups %xmm0, 8(%rdi)	// VMOVUPS X0, 0x8(DI)
+	QUAD $0x1847c748	// movq $0, 0x18(%rdi)	// MOVQ $0x0, 0x18(DI)
+	LONG $0x2847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x28(%rdi)	// MOVL $0x0, 0x28(DI)
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0xc683; BYTE $0x1	// addl $1, %esi	// ADDL $0x1, SI
+	WORD $0x7789; BYTE $0x2c	// movl %esi, 0x2c(%rdi)	// MOVL SI, 0x2c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+
+__subr_IoUringPrepRead__off_12912:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0x1607c7; WORD $0x0	// movl $0x16, (%rdi)	// MOVL $0x16, (DI)
@@ -3718,7 +3978,7 @@ __subr_IoUringPrepRead__off_11936:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	LONG $0x401f0f	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepWrite__off_12000:
+__subr_IoUringPrepWrite__off_12976:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0x1707c7; WORD $0x0	// movl $0x17, (%rdi)	// MOVL $0x17, (DI)
@@ -3735,7 +3995,56 @@ __subr_IoUringPrepWrite__off_12000:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	LONG $0x401f0f	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepSend__off_12064:
+__subr_IoUringPrepStatx__off_13040:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1507c7; WORD $0x0	// movl $0x15, (%rdi)	// MOVL $0x15, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0x84f894c	// movq %r9, 8(%rdi)	// MOVQ R9, 0x8(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	LONG $0x18478944	// movl %r8d, 0x18(%rdi)	// MOVL R8, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	BYTE $0x90	// nop	// NOP 
+
+__subr_IoUringPrepFadvise__off_13088:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1807c7; WORD $0x0	// movl $0x18, (%rdi)	// MOVL $0x18, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0x8578948	// movq %rdx, 8(%rdi)	// MOVQ DX, 0x8(DI)
+	QUAD $0x1047c748	// movq $0, 0x10(%rdi)	// MOVQ $0x0, 0x10(DI)
+	WORD $0x4f89; BYTE $0x18	// movl %ecx, 0x18(%rdi)	// MOVL CX, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x1c478944	// movl %r8d, 0x1c(%rdi)	// MOVL R8, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
+	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
+
+__subr_IoUringPrepMadvise__off_13152:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	QUAD $0xffff00000019b848; WORD $0xffff	// movabsq $0xffffffff00000019, %rax	// 
+	WORD $0x8948; BYTE $0x7	// movq %rax, (%rdi)	// MOVQ AX, (DI)
+	QUAD $0x847c748	// movq $0, 8(%rdi)	// MOVQ $0x0, 0x8(DI)
+	LONG $0x10778948	// movq %rsi, 0x10(%rdi)	// MOVQ SI, 0x10(DI)
+	WORD $0x5789; BYTE $0x18	// movl %edx, 0x18(%rdi)	// MOVL DX, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	WORD $0x4f89; BYTE $0x1c	// movl %ecx, 0x1c(%rdi)	// MOVL CX, 0x1c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
+
+__subr_IoUringPrepSend__off_13216:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0x1a07c7; WORD $0x0	// movl $0x1a, (%rdi)	// MOVL $0x1a, (DI)
@@ -3752,7 +4061,7 @@ __subr_IoUringPrepSend__off_12064:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepRecv__off_12128:
+__subr_IoUringPrepRecv__off_13280:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	LONG $0x1b07c7; WORD $0x0	// movl $0x1b, (%rdi)	// MOVL $0x1b, (DI)
@@ -3769,7 +4078,38 @@ __subr_IoUringPrepRecv__off_12128:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	WORD $0x1f0f; BYTE $0x0	// nopl (%rax)	// NOPL (AX)
 
-__subr_IoUringPrepEpollCtl__off_12192:
+__subr_IoUringPrepOpenat2__off_13344:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1c07c7; WORD $0x0	// movl $0x1c, (%rdi)	// MOVL $0x1c, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0x84f8948	// movq %rcx, 8(%rdi)	// MOVQ CX, 0x8(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	QUAD $0x181847c748	// movq $0x18, 0x18(%rdi)	// MOVQ $0x18, 0x18(DI)
+	QUAD $0x2847c748	// movq $0, 0x28(%rdi)	// MOVQ $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+
+__subr_IoUringPrepOpenat2Direct__off_13392:
+	BYTE $0x55	// pushq %rbp	// PUSHQ BP
+	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
+	LONG $0x1c07c7; WORD $0x0	// movl $0x1c, (%rdi)	// MOVL $0x1c, (DI)
+	WORD $0x7789; BYTE $0x4	// movl %esi, 4(%rdi)	// MOVL SI, 0x4(DI)
+	LONG $0x84f8948	// movq %rcx, 8(%rdi)	// MOVQ CX, 0x8(DI)
+	LONG $0x10578948	// movq %rdx, 0x10(%rdi)	// MOVQ DX, 0x10(DI)
+	QUAD $0x181847c748	// movq $0x18, 0x18(%rdi)	// MOVQ $0x18, 0x18(DI)
+	LONG $0x2847c7; WORD $0x0; BYTE $0x0	// movl $0, 0x28(%rdi)	// MOVL $0x0, 0x28(DI)
+	LONG $0xc057f8c5	// vxorps %xmm0, %xmm0, %xmm0	// VXORPS X0, X0, X0
+	LONG $0x4711f8c5; BYTE $0x30	// vmovups %xmm0, 0x30(%rdi)	// VMOVUPS X0, 0x30(DI)
+	LONG $0x1c08341	// addl $1, %r8d	// ADDL $0x1, R8
+	LONG $0x2c478944	// movl %r8d, 0x2c(%rdi)	// MOVL R8, 0x2c(DI)
+	BYTE $0x5d	// popq %rbp	// POPQ BP
+	BYTE $0xc3	// retq	// RET 
+	QUAD $0x841f0f66; BYTE $0x0	// nopw (%rax, %rax)	// NOPW (AX)(AX*1)
+
+__subr_IoUringPrepEpollCtl__off_13456:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	WORD $0xd089	// movl %edx, %eax	// MOVL DX, AX
@@ -3787,7 +4127,7 @@ __subr_IoUringPrepEpollCtl__off_12192:
 	QUAD $0x841f0f2e66; WORD $0x0	// nopw %cs:(%rax, %rax)	// NOPW (CS)(AX*1)
 	WORD $0x9066	// nop	// NOP 
 
-__subr_IoUringGetSQE__off_12256:
+__subr_IoUringGetSQE__off_13520:
 	BYTE $0x55	// pushq %rbp	// PUSHQ BP
 	WORD $0x8948; BYTE $0xe5	// movq %rsp, %rbp	// MOVQ SP, BP
 	WORD $0x8b48; BYTE $0x7	// movq (%rdi), %rax	// MOVQ (DI), AX
@@ -3798,12 +4138,12 @@ __subr_IoUringGetSQE__off_12256:
 	WORD $0xce29	// subl %ecx, %esi	// SUBL CX, SI
 	LONG $0x184f8b48	// movq 0x18(%rdi), %rcx	// MOVQ 0x18(DI), CX
 	WORD $0x313b	// cmpl (%rcx), %esi	// CMPL SI, (CX)
-	WORD $0x476	// jbe 0x2fff	// JBE _lbl_2fff
+	WORD $0x476	// jbe 0x34ef	// JBE _lbl_34ef
 	WORD $0xc031	// xorl %eax, %eax	// XORL AX, AX
 	BYTE $0x5d	// popq %rbp	// POPQ BP
 	BYTE $0xc3	// retq	// RET 
 
-_lbl_2fff:
+_lbl_34ef:
 	LONG $0xc08f8b; WORD $0x0	// movl 0xc0(%rdi), %ecx	// MOVL 0xc0(DI), CX
 	WORD $0xe9c1; BYTE $0xa	// shrl $0xa, %ecx	// SHRL $0xa, CX
 	LONG $0x10778b48	// movq 0x10(%rdi), %rsi	// MOVQ 0x10(DI), SI
@@ -4009,7 +4349,7 @@ _IoUringPrepFsync:
 	MOVQ sqe+0(FP), DI
 	MOVQ fd+8(FP), SI
 	MOVQ flags+16(FP), DX
-	LEAQ ·__native_entry__+11584(SB), AX
+	LEAQ ·__native_entry__+11808(SB), AX
 	JMP AX
 
 
@@ -4018,7 +4358,7 @@ TEXT ·IoUringPrepNop(SB), NOSPLIT | NOFRAME, $0 - 8
 
 _IoUringPrepNop:
 	MOVQ sqe+0(FP), DI
-	LEAQ ·__native_entry__+11632(SB), AX
+	LEAQ ·__native_entry__+11856(SB), AX
 	JMP AX
 
 
@@ -4031,7 +4371,7 @@ _IoUringPrepAccept:
 	MOVQ addr+16(FP), DX
 	MOVQ addrlen+24(FP), CX
 	MOVQ flags+32(FP), R8
-	LEAQ ·__native_entry__+11696(SB), AX
+	LEAQ ·__native_entry__+12112(SB), AX
 	JMP AX
 
 
@@ -4044,7 +4384,7 @@ _IoUringPrepMultishotAccept:
 	MOVQ addr+16(FP), DX
 	MOVQ addrlen+24(FP), CX
 	MOVQ flags+32(FP), R8
-	LEAQ ·__native_entry__+11760(SB), AX
+	LEAQ ·__native_entry__+12176(SB), AX
 	JMP AX
 
 
@@ -4055,7 +4395,7 @@ _IoUringPrepConnect:
 	MOVQ sqe+0(FP), DI
 	MOVQ addr+8(FP), SI
 	MOVQ addrlen+16(FP), DX
-	LEAQ ·__native_entry__+11824(SB), AX
+	LEAQ ·__native_entry__+12560(SB), AX
 	JMP AX
 
 
@@ -4065,7 +4405,7 @@ TEXT ·IoUringPrepClose(SB), NOSPLIT | NOFRAME, $0 - 16
 _IoUringPrepClose:
 	MOVQ sqe+0(FP), DI
 	MOVQ fd+8(FP), SI
-	LEAQ ·__native_entry__+11888(SB), AX
+	LEAQ ·__native_entry__+12816(SB), AX
 	JMP AX
 
 
@@ -4077,7 +4417,7 @@ _IoUringPrepRead:
 	MOVQ buf+8(FP), SI
 	MOVQ nbytes+16(FP), DX
 	MOVQ offset+24(FP), CX
-	LEAQ ·__native_entry__+11936(SB), AX
+	LEAQ ·__native_entry__+12912(SB), AX
 	JMP AX
 
 
@@ -4089,7 +4429,7 @@ _IoUringPrepWrite:
 	MOVQ buf+8(FP), SI
 	MOVQ nbytes+16(FP), DX
 	MOVQ offset+24(FP), CX
-	LEAQ ·__native_entry__+12000(SB), AX
+	LEAQ ·__native_entry__+12976(SB), AX
 	JMP AX
 
 
@@ -4101,7 +4441,7 @@ _IoUringPrepSend:
 	MOVQ sockfd+8(FP), SI
 	MOVQ buf+16(FP), DX
 	MOVQ flags+24(FP), CX
-	LEAQ ·__native_entry__+12064(SB), AX
+	LEAQ ·__native_entry__+13216(SB), AX
 	JMP AX
 
 
@@ -4113,7 +4453,7 @@ _IoUringPrepRecv:
 	MOVQ sockfd+8(FP), SI
 	MOVQ buf+16(FP), DX
 	MOVQ flags+24(FP), CX
-	LEAQ ·__native_entry__+12128(SB), AX
+	LEAQ ·__native_entry__+13280(SB), AX
 	JMP AX
 
 
@@ -4126,7 +4466,7 @@ _IoUringPrepEpollCtl:
 	MOVQ fd+16(FP), DX
 	MOVQ op+24(FP), CX
 	MOVQ ev+32(FP), R8
-	LEAQ ·__native_entry__+12192(SB), AX
+	LEAQ ·__native_entry__+13456(SB), AX
 	JMP AX
 
 
@@ -4135,7 +4475,7 @@ TEXT ·IoUringGetSQE(SB), NOSPLIT | NOFRAME, $0 - 16
 
 _IoUringGetSQE:
 	MOVQ ring+0(FP), DI
-	CALL ·__native_entry__+12256(SB)
+	CALL ·__native_entry__+13520(SB)
 	MOVQ AX, sqe+8(FP)
 	RET
 
