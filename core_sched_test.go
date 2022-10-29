@@ -1,6 +1,7 @@
 package gouringasm
 
 import (
+	"fmt"
 	"sync"
 	"testing"
 )
@@ -46,9 +47,10 @@ func TestSched(t *testing.T) {
 			if cqe == nil {
 				panic("cqe returned is nil")
 			}
+			fmt.Printf("%+#v\n", cqe)
+			h.SeenCqe(cqe)
 			i++
 		}
-		println(i)
 	}()
 
 	wg.Wait()
